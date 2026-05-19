@@ -1,0 +1,31 @@
+{
+  "name": "life360-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "server": "node src/api/server.js",
+    "start": "concurrently -n SERVER,WEB -c blue,green \"npm:server\" \"npm:dev\"",
+    "build": "vite build",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "jsdom": "^23.0.1",
+    "supertest": "^6.3.3",
+    "vite": "^5.0.10",
+    "vitest": "^1.1.0"
+  }
+}

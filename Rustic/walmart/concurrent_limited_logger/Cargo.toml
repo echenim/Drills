@@ -1,0 +1,8 @@
+[package]
+name = "concurrent_limited_logger"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+crossbeam = "0.8"
+crossbeam-channel = "0.5"
