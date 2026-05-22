@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -9,6 +10,7 @@ type RateLimiter struct {
 	limit    int
 	window   time.Duration
 	requests map[string][]time.Time
+	mu       sync.Mutex
 }
 
 func NewRateLimiter(limit int, window time.Duration) *RateLimiter {
@@ -20,6 +22,8 @@ func NewRateLimiter(limit int, window time.Duration) *RateLimiter {
 }
 
 func (r *RateLimiter) Allow(clientID string, now time.Time) bool {
+	r.mu.Lock()
+
 	// Edge case: if limit is 0 or negative, never allow requests
 	if r.limit <= 0 {
 		return false
