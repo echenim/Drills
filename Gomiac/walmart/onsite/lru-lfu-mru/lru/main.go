@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 type CacheItem struct {
 	value string
 	key   int
@@ -30,7 +34,14 @@ func NewLRUCache(capacity int) *LRUCache {
 }
 
 func (c *LRUCache) Get(key int) string {
-	return ""
+	node, exists := c.items[key]
+	if !exists {
+		return "Data does not exist"
+	}
+
+	c.remove(node)
+	c.addToFront(node)
+	return node.value
 }
 
 func (c *LRUCache) Put(key int, value string) {
@@ -81,14 +92,14 @@ func main() {
 	cache.Put(1, "one")
 	cache.Put(2, "two")
 
-	println(cache.Get(1)) // Output: "one"
+	fmt.Println(cache.Get(1)) // Output: "one"
 
 	cache.Put(3, "three") // Evicts key 2
 
-	println(cache.Get(2)) // Output: "Data does not exist"
+	fmt.Println(cache.Get(2)) // Output: "Data does not exist"
 
-	cache.Put(4, "four") // Evicts key 3
+	fmt.Println(4, "four") // Evicts key 3
 
-	println(cache.Get(3)) // Output: "Data does not exist"
-	println(cache.Get(4)) // Output: "four"
+	fmt.Println(cache.Get(3)) // Output: "Data does not exist"
+	fmt.Println(cache.Get(4)) // Output: "four"
 }
