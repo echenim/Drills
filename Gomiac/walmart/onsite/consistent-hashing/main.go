@@ -18,7 +18,7 @@ type ConsistentHash struct {
 
 // New creates a new ConsistentHash ring with given replica count and hash function.
 // If hashFunc is nil, crc32.ChecksumIEEE is used (fast & standard for load balancing).
-func New(replicas int, hashFunc func([]byte) uint32) *ConsistentHash {
+func NewConsistentHash(replicas int, hashFunc func([]byte) uint32) *ConsistentHash {
 	if hashFunc == nil {
 		hashFunc = crc32.ChecksumIEEE
 	}
@@ -77,7 +77,7 @@ func (c *ConsistentHash) Remove(node ...string) {
 }
 
 func main() {
-	ch := New(300, nil) // 3 replicas, default hash function
+	ch := NewConsistentHash(300, nil) // 3 replicas, default hash function
 
 	ch.Add("NodeA", "NodeB", "NodeC")
 	fmt.Println(ch.Get("myKey1")) // Should consistently return the same node for "myKey1"
